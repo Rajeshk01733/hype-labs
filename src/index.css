@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+
+/* Global Base */
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* Headings */
+h1 {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h4 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h6 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Utility classes for font weights */
+.font-light {
+  font-weight: 300;
+}
+
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Compact text option */
+.text-compact {
+  line-height: 1.25;
+}
+
+.hide-scrollbar {
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* marquee-inner is the scrolling track */
+.marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+
+/* ensure children don't shrink and keep consistent width */
+.marquee-inner > * {
+  flex: 0 0 auto;
+}
+
+/* pause animation on hover so users can interact with cards */
+.marquee:hover .marquee-inner {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-inner {
+    animation: none;
+  }
+}
+
+.lato-thin {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.lato-light {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.lato-thin-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.lato-light-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.lato-regular-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.lato-bold-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.lato-black-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
