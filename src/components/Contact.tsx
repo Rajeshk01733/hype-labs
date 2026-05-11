@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 type ContactFormData = {
   fullName: string;
@@ -12,13 +12,22 @@ type ContactFormData = {
   interests: string[];
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.96, y: 20 },
+const scaleIn: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.96,
+    y: 20,
+  },
+
   show: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }, // Using an array for easing
+
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
   },
 };
 
@@ -52,12 +61,17 @@ const ContactSection: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const toggleInterest = (value: string) => {
     setFormData((prev) => {
       const exists = prev.interests.includes(value);
+
       return {
         ...prev,
         interests: exists
@@ -74,12 +88,33 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="bg-black font-lato">
+      {/* Contact Section Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mx-auto max-w-5xl px-4 pt-10 pb-12 text-center"
+      >
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+          Looking for reliable IT services?
+        </h2>
+
+        <p className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+          Let’s discuss how we can support your business with tailored
+          solutions. Connect with a trusted{" "}
+          <span className="font-bold text-white">
+            IT solutions company in Bangalore
+          </span>{" "}
+          and across India to get started.
+        </p>
+      </motion.div>
+
       <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 sm:pb-24">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.12 }}
-          // variants={scaleIn}
+          variants={scaleIn}
           className="rounded-[28px] border border-white/8 bg-[#090909] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-7"
         >
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -88,6 +123,7 @@ const ContactSection: React.FC = () => {
                 <label className="mb-2 block text-xs font-medium text-white/70">
                   Full Name
                 </label>
+
                 <input
                   name="fullName"
                   value={formData.fullName}
@@ -101,6 +137,7 @@ const ContactSection: React.FC = () => {
                 <label className="mb-2 block text-xs font-medium text-white/70">
                   Email Address
                 </label>
+
                 <input
                   name="email"
                   type="email"
@@ -115,6 +152,7 @@ const ContactSection: React.FC = () => {
                 <label className="mb-2 block text-xs font-medium text-white/70">
                   Phone No.
                 </label>
+
                 <input
                   name="phone"
                   value={formData.phone}
@@ -128,6 +166,7 @@ const ContactSection: React.FC = () => {
                 <label className="mb-2 block text-xs font-medium text-white/70">
                   Business Name
                 </label>
+
                 <input
                   name="businessName"
                   value={formData.businessName}
@@ -158,6 +197,7 @@ const ContactSection: React.FC = () => {
                         onChange={() => toggleInterest(option)}
                         className="h-4 w-4 accent-white"
                       />
+
                       <span>{option}</span>
                     </label>
                   );
@@ -170,6 +210,7 @@ const ContactSection: React.FC = () => {
                 <label className="mb-2 block text-xs font-medium text-white/70">
                   Business Size
                 </label>
+
                 <input
                   name="businessSize"
                   value={formData.businessSize}
@@ -183,6 +224,7 @@ const ContactSection: React.FC = () => {
                 <label className="mb-2 block text-xs font-medium text-white/70">
                   Business Budget
                 </label>
+
                 <input
                   name="budget"
                   value={formData.budget}
@@ -197,6 +239,7 @@ const ContactSection: React.FC = () => {
               <label className="mb-2 block text-xs font-medium text-white/70">
                 Message
               </label>
+
               <textarea
                 name="message"
                 value={formData.message}
@@ -223,25 +266,5 @@ const ContactSection: React.FC = () => {
     </section>
   );
 };
-
-{
-  /* Contact Section Heading */
-}
-<motion.div
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  className="mx-auto max-w-5xl px-4 pt-20 pb-12 text-center"
->
-  <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-    Looking for reliable IT services?
-  </h2>
-
-  <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-    Let's discuss how we can support your business with tailored solutions.
-    Connect with a trusted IT solutions company in Bangalore and across India to
-    get started.
-  </p>
-</motion.div>;
 
 export default ContactSection;

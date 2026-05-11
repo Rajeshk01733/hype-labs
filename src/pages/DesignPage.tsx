@@ -381,7 +381,7 @@ const DesignPage: React.FC<Props> = ({ data }) => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-sm md:text-base font-light uppercase leading-tight [word-spacing:0.1em] mb-8 text-white"
+                    className="text-sm md:text-base font-bold uppercase leading-tight [word-spacing:0.1em] mb-8 text-white"
                   >
                     {data.title}
                   </motion.h2>

@@ -1,5 +1,10 @@
-
-export type Category = 'All' | 'Web Design' | 'Branding' | 'Marketing' | 'Social Media' |'CGI';
+export type Category =
+  | "All"
+  | "Web Design"
+  | "Branding"
+  | "Marketing"
+  | "Social Media"
+  | "CGI";
 
 export interface Project {
   id: number;
@@ -71,6 +76,7 @@ export interface PortfolioSection {
   sector: string;
   folderPath: string;
   images: string[];
+  videos?: string[];
 }
 
 export interface PortfolioSector {

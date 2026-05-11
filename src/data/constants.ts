@@ -243,22 +243,21 @@ export const FAQS: FAQItem[] = [
 export const INDUSTRIES = [
   "Design",
   "Development",
-   "Marketing",
+  "Marketing",
   "Infrastructure",
- 
 ];
 
 export const SERVICES_BY_INDUSTRY: Record<string, string[]> = {
-  Design: ["Photography"],  // Formerly Jewelery
-  Development: ["Photography", "Commercial Production"],  // Formerly Finance
+  Design: ["Photography"], // Formerly Jewelery
+  Development: ["Photography", "Commercial Production"], // Formerly Finance
   Infrastructure: [
     "Photography",
     "Graphics",
     "Content Creation",
     "3D Images",
     "3D Videos",
-  ],  // Formerly Fashion
-  Marketing: ["Photography", "Graphics", "Content Creation"],  // Formerly Automobile
+  ], // Formerly Fashion
+  Marketing: ["Photography", "Graphics", "Content Creation"], // Formerly Automobile
 };
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
@@ -333,7 +332,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       { id: 4, type: "image", url: "/portfolio/Marketing/04.png" },
     ],
   },
-  
 ];
 
 // Portfolio Sectors Data
@@ -349,10 +347,10 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         sector: "Marketing",
         folderPath: "Marketing/Energy & Sustainability Services",
         images: [
-          "/portfolio/Marketing/Energy & Sustainability Services/01.png",
-          "/portfolio/Marketing/Energy & Sustainability Services/02.png",
-          "/portfolio/Marketing/Energy & Sustainability Services/03.png",
           "/portfolio/Marketing/Energy & Sustainability Services/04.png",
+          "/portfolio/Marketing/Energy & Sustainability Services/02.png",
+          "/portfolio/Marketing/Energy & Sustainability Services/01.png",
+          "/portfolio/Marketing/Energy & Sustainability Services/03.png",
         ],
       },
       {
@@ -363,8 +361,6 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         images: [
           "/portfolio/Marketing/RealEstate/01.png",
           "/portfolio/Marketing/RealEstate/02.png",
-          "/portfolio/Marketing/RealEstate/03.png",
-          "/portfolio/Marketing/RealEstate/04.png",
         ],
       },
     ],
@@ -402,16 +398,18 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         images: [
           "/portfolio/Design/Textiles & Manufacturing/01.png",
           "/portfolio/Design/Textiles & Manufacturing/02.png",
+          "/portfolio/Design/Textiles & Manufacturing/03.png",
         ],
       },
       {
         id: 4,
         name: "Education / Academic Institution",
         sector: "Design",
-        folderPath: "Design/Education / Academic Institution",
+        folderPath: "Design/Education & Academic Institution",
         images: [
-          "/portfolio/Design/Education / Academic Institution/01.png",
-          "/portfolio/Design/Education / Academic Institution/02.png",
+          "/portfolio/Design/Education & Academic Institution/01.png",
+          "/portfolio/Design/Education & Academic Institution/02.png",
+          "/portfolio/Design/Education & Academic Institution/03.png",
         ],
       },
       {
@@ -419,10 +417,8 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         name: "Construction & Building Materials",
         sector: "Design",
         folderPath: "Design/Construction & Building Materials",
-        images: [
-          "/portfolio/Design/Construction & Building Materials/01.png",
-          "/portfolio/Design/Construction & Building Materials/02.png",
-        ],
+        images: ["/portfolio/Design/Construction & Building Materials/01.png"],
+        videos: ["/portfolio/Design/Construction & Building Materials/02.mp4"],
       },
       {
         id: 6,
@@ -432,6 +428,8 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         images: [
           "/portfolio/Design/Banking & Financial Services/01.png",
           "/portfolio/Design/Banking & Financial Services/02.png",
+          "/portfolio/Design/Banking & Financial Services/03.png",
+          "/portfolio/Design/Banking & Financial Services/04.png",
         ],
       },
     ],
@@ -453,12 +451,12 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
       },
       {
         id: 2,
-        name: "Oil & Gas / Industrial Services",
+        name: "Oil & Gas & Industrial Services",
         sector: "Development",
-        folderPath: "Development/Oil & Gas / Industrial Services",
+        folderPath: "Development/Oil & Gas & Industrial Services",
         images: [
-          "/portfolio/Development/Oil & Gas / Industrial Services/01.png",
-          "/portfolio/Development/Oil & Gas / Industrial Services/02.png",
+          "/portfolio/Development/Oil & Gas & Industrial Services/01.png",
+          "/portfolio/Development/Oil & Gas & Industrial Services/02.png",
         ],
       },
       {
@@ -473,22 +471,21 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
       },
       {
         id: 4,
-        name: "Hospitality / Travel Accommodation",
+        name: "Hospitality & Travel Accommodation",
         sector: "Development",
-        folderPath: "Development/Hospitality / Travel Accommodation",
+        folderPath: "Development/Hospitality & Travel Accommodation",
         images: [
-          "/portfolio/Development/Hospitality / Travel Accommodation/01.png",
-          "/portfolio/Development/Hospitality / Travel Accommodation/02.png",
+          "/portfolio/Development/Hospitality & Travel Accommodation/01.png",
         ],
       },
       {
         id: 5,
-        name: "FoodTech / Cloud Kitchen / Food Delivery",
+        name: "FoodTech & Cloud Kitchen & Food Delivery",
         sector: "Development",
-        folderPath: "Development/FoodTech / Cloud Kitchen / Food Delivery",
+        folderPath: "Development/FoodTech & Cloud Kitchen & Food Delivery",
         images: [
-          "/portfolio/Development/FoodTech / Cloud Kitchen / Food Delivery/01.png",
-          "/portfolio/Development/FoodTech / Cloud Kitchen / Food Delivery/02.png",
+          "/portfolio/Development/FoodTech & Cloud Kitchen & Food Delivery/01.png",
+          "/portfolio/Development/FoodTech & Cloud Kitchen & Food Delivery/02.png",
         ],
       },
       {
@@ -499,6 +496,7 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         images: [
           "/portfolio/Development/Fitness/01.png",
           "/portfolio/Development/Fitness/02.png",
+          "/portfolio/Development/Fitness/03.png",
         ],
       },
       {
@@ -509,46 +507,49 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         images: [
           "/portfolio/Development/Fashion & Lifestyle Service/01.png",
           "/portfolio/Development/Fashion & Lifestyle Service/02.png",
+          "/portfolio/Development/Fashion & Lifestyle Service/03.png",
+          "/portfolio/Development/Fashion & Lifestyle Service/04.png",
+          "/portfolio/Development/Fashion & Lifestyle Service/05.png",
         ],
       },
       {
         id: 8,
-        name: "D2C / FMCG (Dairy Brand)",
+        name: "D2C & FMCG",
         sector: "Development",
-        folderPath: "Development/D2C / FMCG (Dairy Brand)",
+        folderPath: "Development/D2C & FMCG",
         images: [
-          "/portfolio/Development/D2C / FMCG (Dairy Brand)/01.png",
-          "/portfolio/Development/D2C / FMCG (Dairy Brand)/02.png",
+          "/portfolio/Development/D2C & FMCG/01.png",
+          "/portfolio/Development/D2C & FMCG/02.png",
         ],
       },
       {
         id: 9,
-        name: "Creative Agency / Design Studio",
+        name: "Creative Agency & Design Studio",
         sector: "Development",
-        folderPath: "Development/Creative Agency / Design Studio",
+        folderPath: "Development/Creative Agency & Design Studio",
         images: [
-          "/portfolio/Development/Creative Agency / Design Studio/01.png",
-          "/portfolio/Development/Creative Agency / Design Studio/02.png",
+          "/portfolio/Development/Creative Agency & Design Studio/01.png",
+          "/portfolio/Development/Creative Agency & Design Studio/02.png",
         ],
       },
       {
         id: 10,
-        name: "Consulting / Business Advisory Firm",
+        name: "Consulting & Business Advisory Firm",
         sector: "Development",
-        folderPath: "Development/Consulting / Business Advisory Firm",
+        folderPath: "Development/Consulting & Business Advisory Firm",
         images: [
-          "/portfolio/Development/Consulting / Business Advisory Firm/01.png",
-          "/portfolio/Development/Consulting / Business Advisory Firm/02.png",
+          "/portfolio/Development/Consulting & Business Advisory Firm/01.png",
+          "/portfolio/Development/Consulting & Business Advisory Firm/02.png",
         ],
       },
       {
         id: 11,
-        name: "Business SaaS / SME Management Tool",
+        name: "Business SaaS & SME Management Tool",
         sector: "Development",
-        folderPath: "Development/Business SaaS / SME Management Tool",
+        folderPath: "Development/Business SaaS & SME Management Tool",
         images: [
-          "/portfolio/Development/Business SaaS / SME Management Tool/01.png",
-          "/portfolio/Development/Business SaaS / SME Management Tool/02.png",
+          "/portfolio/Development/Business SaaS & SME Management Tool/01.png",
+          "/portfolio/Development/Business SaaS & SME Management Tool/02.png",
         ],
       },
       {
@@ -569,6 +570,7 @@ export const PORTFOLIO_SECTORS: PortfolioSector[] = [
         images: [
           "/portfolio/Development/Smart Community & Security Platform/01.png",
           "/portfolio/Development/Smart Community & Security Platform/02.png",
+          "/portfolio/Development/Smart Community & Security Platform/03.png",
         ],
       },
     ],

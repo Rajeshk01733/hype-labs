@@ -4,7 +4,10 @@ import { ArrowRight } from "lucide-react";
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative w-full min-h-screen md:min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section
+      id="banner"
+      className="relative w-full min-h-screen md:min-h-screen flex flex-col items-center justify-center overflow-hidden"
+    >
       {/* Background Video */}
       <div className="absolute inset-x-0 top-20 md:top-24 bottom-0 z-0 bg-black">
         <video

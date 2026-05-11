@@ -207,7 +207,11 @@ const MarketingPage: React.FC<Props> = ({ data }) => {
                   <img
                     src={data.heroImage}
                     alt={data.title}
-                    className={`w-full h-auto object-contain drop-shadow-2xl ${isContentCreation ? "max-h-[400px] scale-90" : "max-h-[400px]"}`}
+                    className={`w-full h-full object-cover rounded-[28px] drop-shadow-2xl ${
+                      isContentCreation
+                        ? "max-h-[500px] lg:max-h-[500px]"
+                        : "max-h-[450px]"
+                    }`}
                   />
                 </motion.div>
 
@@ -223,7 +227,7 @@ const MarketingPage: React.FC<Props> = ({ data }) => {
                   transition={{ duration: 0.8, delay: 0.3 }}
                   className="text-5xl md:text-6xl font-bold uppercase leading-[0.95] tracking-tight mb-10 text-white wrap-break-word"
                 >
-                  {data.heroTitle}
+                  {data.title}
                 </motion.h1>
                 <motion.p
                   initial={{ opacity: 0 }}
@@ -440,7 +444,7 @@ const MarketingPage: React.FC<Props> = ({ data }) => {
               <div className="absolute inset-0 bg-black/40 z-10" />
               <img
                 src={data.heroImage}
-                alt={data.heroTitle}
+                alt={data.title}
                 className="w-full h-full object-cover scale-110"
               />
             </div>
@@ -452,7 +456,7 @@ const MarketingPage: React.FC<Props> = ({ data }) => {
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               >
                 <h1 className="text-6xl md:text-[8vw] font-display font-bold uppercase leading-[0.85] tracking-tight mb-8">
-                  {data.heroTitle}
+                  {data.title}
                 </h1>
               </motion.div>
 

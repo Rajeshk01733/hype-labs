@@ -80,11 +80,11 @@ const Portfolio: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Image Gallery Grid */}
+        {/* Image & Video Gallery Grid */}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-6">
           {activeSection.images.map((imageUrl, index) => (
             <motion.div
-              key={`${activeSection.id}-${index}`}
+              key={`${activeSection.id}-img-${index}`}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -103,6 +103,35 @@ const Portfolio: React.FC = () => {
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
             </motion.div>
           ))}
+          {/* Render videos if present */}
+          {activeSection.videos &&
+            activeSection.videos.map((videoUrl, vIdx) => (
+              <motion.div
+                key={`${activeSection.id}-vid-${vIdx}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: (activeSection.images.length + vIdx) * 0.05,
+                }}
+                className="group relative overflow-hidden rounded-lg bg-gray-900 mb-6 break-inside-avoid cursor-pointer"
+              >
+                <video
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+                  poster={activeSection.images[0] || undefined}
+                >
+                  <source src={videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+              </motion.div>
+            ))}
         </div>
 
         {/* Empty State */}

@@ -214,8 +214,26 @@ const Navbar: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" className="flex items-center" onClick={closeAll}>
-              <span className="text-2xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <Link
+              to="/"
+              className="flex items-center"
+              onClick={() => {
+                closeAll();
+
+                // If already on home page
+                if (window.location.pathname === "/") {
+                  const banner = document.getElementById("banner");
+
+                  if (banner) {
+                    banner.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }
+              }}
+            >
+              <span className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] tracking-wide">
                 HypeLab
               </span>
             </Link>
