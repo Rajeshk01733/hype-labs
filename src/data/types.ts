@@ -35,11 +35,23 @@ export interface ServiceItem {
 export interface BlogPost {
   _id?: string;
   title: string;
-  excerpt: string;
-  date: string;
+  image: string;
   category: string;
-  imageUrl: string;
-  type: "blog" | "case-study";
+  cardDescription: string;
+  heroDescription?: string;
+  description?: string;
+  ctaQuestion?: string;
+  pdf?: string;
+  order?: number;
+  publish?: boolean;
+  slug: string;
+  excerpt?: string;
+  date?: string;
+  imageUrl?: string;
+  type?: "blog" | "case-study";
+  objectives?: { description: string }[];
+  status?: { data: string; title: string }[];
+  statusDescription?: string;
 }
 
 export interface JobPosition {

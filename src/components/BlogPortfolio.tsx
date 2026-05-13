@@ -1,4 +1,5 @@
 // In BlogPortfolio.tsx
+
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -24,26 +25,26 @@ const BlogPortfolio: React.FC<ContentSectionProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleCardClick = (postId: string) => {
-    // Navigate directly to the post by ID
+  const handleCardClick = (postId?: string) => {
+    if (!postId) return;
+
     navigate(`/blog/${postId}`);
   };
 
   const handleViewAllClick = () => {
-    // Navigate to the section view (you can implement this later)
     navigate(`/${id}`);
   };
 
   return (
     <section id={id} className="py-20 font-lato">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+      <div className="mb-16 flex flex-col items-end justify-between gap-6 md:flex-row">
         <div>
           <motion.h2
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
-            className="font-display font-bold text-4xl md:text-5xl text-white mb-6"
+            className="font-display mb-6 text-4xl font-bold text-white md:text-5xl"
           >
             {title}
           </motion.h2>
@@ -52,7 +53,7 @@ const BlogPortfolio: React.FC<ContentSectionProps> = ({
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
-            className="text-gray-400 text-lg max-w-xl"
+            className="max-w-xl text-lg text-gray-400"
           >
             {description}
           </motion.p>
@@ -60,47 +61,53 @@ const BlogPortfolio: React.FC<ContentSectionProps> = ({
 
         <button
           onClick={handleViewAllClick}
-          className="hidden md:flex items-center gap-2 text-white hover:text-purple-400 transition-colors font-medium"
+          className="hidden items-center gap-2 font-medium text-white transition-colors hover:text-purple-400 md:flex"
         >
-          {viewAllText} <ArrowRight size={18} />
+          {viewAllText}
+          <ArrowRight size={18} />
         </button>
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {items.map((item) => (
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        {items.map((item, index) => (
           <article
-            key={item._id}
+            key={item._id ?? index}
             className="group cursor-pointer"
-            onClick={() => handleCardClick(item._id)}
+            onClick={() => item._id && handleCardClick(item._id)}
           >
-            <div className="relative overflow-hidden rounded-xl mb-6 aspect-4/3">
+            <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-xl">
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute top-4 left-4">
-                <span className="px-3 py-1 bg-black/70 backdrop-blur-md text-xs font-bold text-white uppercase tracking-wider rounded-full border border-white/10">
+
+              <div className="absolute left-4 top-4">
+                <span className="rounded-full border border-white/10 bg-black/70 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
                   {item.category}
                 </span>
               </div>
             </div>
 
             <div className="space-y-3">
-              <div className="text-purple-400 text-xs font-semibold uppercase tracking-wide">
+              <div className="text-xs font-semibold uppercase tracking-wide text-purple-400">
                 {item.date}
               </div>
-              <h3 className="font-display font-bold text-xl text-white group-hover:text-purple-300 transition-colors leading-tight">
+
+              <h3 className="font-display text-xl leading-tight font-bold text-white transition-colors group-hover:text-purple-300">
                 {item.title}
               </h3>
-              {/* Updated description with dangerouslySetInnerHTML */}
-              <div 
-                className="text-gray-400 text-sm leading-relaxed line-clamp-2 prose prose-invert prose-sm"
-                dangerouslySetInnerHTML={{ __html: item.excerpt }}
+
+              <div
+                className="prose prose-invert prose-sm line-clamp-2 text-sm leading-relaxed text-gray-400"
+                dangerouslySetInnerHTML={{
+                  __html: item.excerpt || "",
+                }}
               />
+
               <div className="pt-2">
-                <span className="inline-flex items-center text-sm font-medium text-white group-hover:underline decoration-purple-500 underline-offset-4">
+                <span className="inline-flex items-center text-sm font-medium text-white underline-offset-4 group-hover:underline decoration-purple-500">
                   {cardActionText}
                 </span>
               </div>
@@ -113,7 +120,7 @@ const BlogPortfolio: React.FC<ContentSectionProps> = ({
       <div className="mt-12 text-center md:hidden">
         <button
           onClick={handleViewAllClick}
-          className="px-8 py-3 border border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 text-sm font-bold"
+          className="rounded-full border border-white/20 px-8 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-white hover:text-black"
         >
           {viewAllText}
         </button>

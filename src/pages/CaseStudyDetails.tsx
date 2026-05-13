@@ -20,8 +20,7 @@ const CareerDetails = () => {
   });
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     phone: "",
     coverLetter: "",
@@ -43,9 +42,7 @@ const CareerDetails = () => {
 
       payload.append("careerId", job._id);
 
-      payload.append("firstName", formData.firstName);
-
-      payload.append("lastName", formData.lastName);
+      payload.append("fullName", formData.fullName);
 
       payload.append("email", formData.email);
 
@@ -62,8 +59,7 @@ const CareerDetails = () => {
       alert("Application submitted successfully");
 
       setFormData({
-        firstName: "",
-        lastName: "",
+        fullName: "",
         email: "",
         phone: "",
         coverLetter: "",
@@ -84,7 +80,7 @@ const CareerDetails = () => {
   }
 
   if (!job) {
-    return <div className="text-white py-40 text-center">Job not found.</div>;
+    return <div className="text-white py-40 text-center">Job not found</div>;
   }
 
   return (
@@ -107,7 +103,6 @@ const CareerDetails = () => {
       </motion.h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* LEFT CONTENT */}
         <div className="flex flex-col gap-6">
           <div>
             <h3 className="text-xl font-bold mb-2">Job Overview</h3>
@@ -115,7 +110,7 @@ const CareerDetails = () => {
             <p className="text-gray-300 leading-relaxed">{job.description}</p>
           </div>
 
-          <div className="space-y-3 text-gray-300">
+          <div className="space-y-2 text-gray-300">
             <p>
               <strong>Department:</strong> {job.department}
             </p>
@@ -132,29 +127,8 @@ const CareerDetails = () => {
               <strong>Salary:</strong> {job.salary}
             </p>
           </div>
-
-          {job.jobDescription && (
-            <div>
-              <h3 className="text-xl font-bold mb-3">Job Description</h3>
-
-              <p className="text-gray-300 leading-relaxed">
-                {job.jobDescription}
-              </p>
-            </div>
-          )}
-
-          {job.keyResponsibilities && (
-            <div>
-              <h3 className="text-xl font-bold mb-3">Responsibilities</h3>
-
-              <p className="text-gray-300 leading-relaxed">
-                {job.keyResponsibilities}
-              </p>
-            </div>
-          )}
         </div>
 
-        {/* APPLY FORM */}
         <motion.div
           initial={{
             opacity: 0,
@@ -173,41 +147,24 @@ const CareerDetails = () => {
             <h2 className="text-xl font-bold">Apply for this position</h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              {/* First Name */}
               <input
                 type="text"
-                placeholder="First Name"
                 required
-                value={formData.firstName}
+                placeholder="Full Name"
+                value={formData.fullName}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    firstName: e.target.value,
+                    fullName: e.target.value,
                   })
                 }
                 className="rounded-md bg-neutral-700 px-3 py-3"
               />
 
-              {/* Last Name */}
-              <input
-                type="text"
-                placeholder="Last Name"
-                required
-                value={formData.lastName}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    lastName: e.target.value,
-                  })
-                }
-                className="rounded-md bg-neutral-700 px-3 py-3"
-              />
-
-              {/* Email */}
               <input
                 type="email"
-                placeholder="Email"
                 required
+                placeholder="Email"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({
@@ -218,11 +175,10 @@ const CareerDetails = () => {
                 className="rounded-md bg-neutral-700 px-3 py-3"
               />
 
-              {/* Phone */}
               <input
                 type="tel"
-                placeholder="Phone"
                 required
+                placeholder="Phone"
                 value={formData.phone}
                 onChange={(e) =>
                   setFormData({
@@ -233,11 +189,10 @@ const CareerDetails = () => {
                 className="rounded-md bg-neutral-700 px-3 py-3"
               />
 
-              {/* Cover Letter */}
               <textarea
                 rows={5}
-                placeholder="Cover Letter"
                 required
+                placeholder="Cover Letter"
                 value={formData.coverLetter}
                 onChange={(e) =>
                   setFormData({
@@ -248,7 +203,6 @@ const CareerDetails = () => {
                 className="rounded-md bg-neutral-700 px-3 py-3"
               />
 
-              {/* Resume */}
               <input
                 type="file"
                 required
@@ -257,7 +211,6 @@ const CareerDetails = () => {
                 className="text-sm"
               />
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}

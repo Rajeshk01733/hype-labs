@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { motion, Variants } from "framer-motion";
+import { useContactForm } from "../hooks/useContactForm";
 
 type ContactFormData = {
   fullName: string;
@@ -43,6 +44,25 @@ const ContactSection: React.FC = () => {
     interests: [],
   });
 
+  const { handleSubmit, isLoading } = useContactForm({
+    sectionName: "Contact Page - Main Contact Form",
+    onSuccess: () => {
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        businessName: "",
+        businessSize: "",
+        budget: "",
+        message: "",
+        interests: [],
+      });
+    },
+    onError: (error) => {
+      console.error("Contact form error:", error);
+    },
+  });
+
   const interestOptions = useMemo(
     () => [
       "Brand Management",
@@ -81,9 +101,34 @@ const ContactSection: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
+
+    // Split name into first and last (or use full name as first if single word)
+    const nameParts = formData.fullName
+      .trim()
+      .split(" ")
+      .filter((part) => part.length > 0);
+
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts.slice(1).join(" ") || "-";
+
+    try {
+      await handleSubmit({
+        firstName,
+        lastName,
+        email: formData.email,
+        phone: formData.phone,
+        businessName: formData.businessName,
+        businessSize: formData.businessSize,
+        budget: formData.budget,
+        message: formData.message,
+        services: formData.interests,
+      });
+    } catch (error) {
+      // Error is already handled by useContactForm hook
+      console.error("Form submission error:", error);
+    }
   };
 
   return (
@@ -117,7 +162,7 @@ const ContactSection: React.FC = () => {
           variants={scaleIn}
           className="rounded-[28px] border border-white/8 bg-[#090909] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-7"
         >
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={onFormSubmit} className="space-y-5">
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <label className="mb-2 block text-xs font-medium text-white/70">
@@ -255,9 +300,10 @@ const ContactSection: React.FC = () => {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="h-12 w-full rounded-xl bg-white text-sm font-medium text-black transition hover:bg-white/90"
+                disabled={isLoading}
+                className="h-12 w-full cursor-pointer rounded-xl bg-white text-sm font-medium text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Submit Message
+                {isLoading ? "Sending..." : "Submit Message"}
               </motion.button>
             </div>
           </form>

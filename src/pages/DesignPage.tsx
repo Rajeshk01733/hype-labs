@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DesignData } from "../data/design";
+import { Helmet } from "react-helmet";
 import { ArrowRight, Plus, Minus, ArrowUp, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import ContactSection from "../components/Contact";

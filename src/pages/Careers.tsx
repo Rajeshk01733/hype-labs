@@ -1,7 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from 'framer-motion';
-import { ArrowUpRight, MapPin, Clock, Search,ChevronDown } from "lucide-react";
-import { JOBS } from "../data/constants";
+import { motion } from "framer-motion";
+import { ArrowUpRight, MapPin, Clock, Search, ChevronDown } from "lucide-react";
+
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+
+import { fetchCareers } from "../api/careers.api";
+
+type Career = {
+  _id: string;
+  slug: string;
+  title: string;
+  department: string;
+  location: string;
+  jobType: string;
+  shortDescription: string;
+};
 
 const Dropdown = ({
   label,
@@ -15,14 +29,20 @@ const Dropdown = ({
   onChange: (v: string) => void;
 }) => {
   const [open, setOpen] = useState(false);
+
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
       if (!ref.current) return;
-      if (!ref.current.contains(e.target as Node)) setOpen(false);
+
+      if (!ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     };
+
     document.addEventListener("mousedown", onDoc);
+
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
@@ -34,13 +54,14 @@ const Dropdown = ({
         className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-full shadow-sm text-sm text-gray-200 hover:border-purple-500/50 transition"
       >
         <span className="text-sm">{value || label}</span>
+
         <ChevronDown
           className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       {open && (
-        <div className="absolute left-0 mt-3 w-40 bg-black border border-gray/10 rounded-2xl shadow-lg z-20 overflow-hidden">
+        <div className="absolute left-0 mt-3 w-44 bg-black border border-white/10 rounded-2xl shadow-lg z-20 overflow-hidden">
           <button
             onClick={() => {
               onChange("");
@@ -59,7 +80,9 @@ const Dropdown = ({
                   onChange(opt);
                   setOpen(false);
                 }}
-                className={`w-full text-left px-4 py-3 hover:bg-white transition ${value === opt ? "bg-white/5 text-white" : "text-gray-400"}`}
+                className={`w-full text-left px-4 py-3 hover:bg-white/5 transition ${
+                  value === opt ? "bg-white/5 text-white" : "text-gray-400"
+                }`}
               >
                 {opt}
               </button>
@@ -72,100 +95,133 @@ const Dropdown = ({
 };
 
 const Careers: React.FC = () => {
-  // search + filters
   const [query, setQuery] = useState("");
-  const [department, setDepartment] = useState(""); // category/dept
+
+  const [department, setDepartment] = useState("");
+
   const [location, setLocation] = useState("");
+
   const [type, setType] = useState("");
 
-  // derive options from JOBS
-  const departments = useMemo(() => {
-    return Array.from(new Set(JOBS.map((j) => j.department))).filter(Boolean);
-  }, []);
+  const { data: jobs = [], isLoading } = useQuery({
+    queryKey: ["careers"],
 
-  const locations = useMemo(() => {
-    return Array.from(new Set(JOBS.map((j) => j.location))).filter(Boolean);
-  }, []);
+    queryFn: fetchCareers,
+  });
 
-  const types = useMemo(() => {
-    return Array.from(new Set(JOBS.map((j) => j.type))).filter(Boolean);
-  }, []);
+  const departments: string[] = useMemo(() => {
+    return Array.from(new Set(jobs.map((j: Career) => j.department))).filter(
+      Boolean,
+    ) as string[];
+  }, [jobs]);
+  const locations: string[] = useMemo(() => {
+    return Array.from(new Set(jobs.map((j: Career) => j.location))).filter(
+      Boolean,
+    ) as string[];
+  }, [jobs]);
 
-  // filtered jobs
+  const types: string[] = useMemo(() => {
+    return Array.from(new Set(jobs.map((j: Career) => j.jobType))).filter(
+      Boolean,
+    ) as string[];
+  }, [jobs]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return JOBS.filter((job) => {
-      // search by title or department
+
+    return jobs.filter((job: Career) => {
       if (q) {
         const combined = `${job.title} ${job.department}`.toLowerCase();
+
         if (!combined.includes(q)) return false;
       }
+
       if (department && job.department !== department) return false;
+
       if (location && job.location !== location) return false;
-      if (type && job.type !== type) return false;
+
+      if (type && job.jobType !== type) return false;
+
       return true;
     });
-  }, [query, department, location, type]);
+  }, [jobs, query, department, location, type]);
 
   const hasActiveFilters = Boolean(query || department || location || type);
 
   return (
-    <section id="careers" className="py-25 px-4 bg-linear-to-b from-neutral-900/50 to-black">
+    <section className="py-25 px-4 bg-linear-to-b from-neutral-900/50 to-black">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-16 mb-12">
           <motion.div
-            initial={{opacity:0, x:-30}}
-            whileInView={{opacity:1,x:0}}
-            transition={{duration:1.2}} 
+            initial={{
+              opacity: 0,
+              x: -30,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 1.2,
+            }}
             className="ps-3 flex flex-col items-start justify-center"
           >
             <h2 className="font-display font-bold text-4xl md:text-5xl text-white my-6">
               Join the <span className="text-purple-500">Revolution</span>
             </h2>
+
             <p className="text-gray-400 text-md leading-relaxed mb-8 max-w-2xl">
-              We are always looking for visionary creators, strategists, and developers who are ready to push boundaries. 
-              If you're passionate about innovation, we want to hear from you.
+              We are always looking for visionary creators, strategists, and
+              developers who are ready to push boundaries.
             </p>
+
             <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300">
               View All Openings
             </button>
           </motion.div>
 
-          {/* Filters column */}
           <div className="ps-3 items-start justify-center">
             <div className="flex flex-col gap-4">
-              {/* search box */}
               <div className="flex flex-col lg:flex-row gap-4">
                 <div className="relative">
                   <Search
                     size={18}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
                   />
+
                   <input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search roles or department"
                     className="w-[300px] rounded-full bg-white/5 border border-white/10 py-3 pl-12 pr-4 text-gray-200 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
-                  {query && (
-                    <button
-                      onClick={() => setQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 hover:text-white"
-                    >
-                      Clear
-                    </button>
-                  )}
                 </div>
 
-                {/* dropdown filters */}
                 <div className="flex flex-wrap gap-3 items-center">
-                  <Dropdown label="Department" value={department} options={departments} onChange={setDepartment} />
-                  <Dropdown label="Job Type" value={type} options={types} onChange={setType} />
-                  <Dropdown label="Location" value={location} options={locations} onChange={setLocation} />
+                  <Dropdown
+                    label="Department"
+                    value={department}
+                    options={departments}
+                    onChange={setDepartment}
+                  />
+
+                  <Dropdown
+                    label="Job Type"
+                    value={type}
+                    options={types}
+                    onChange={setType}
+                  />
+
+                  <Dropdown
+                    label="Location"
+                    value={location}
+                    options={locations}
+                    onChange={setLocation}
+                  />
 
                   {hasActiveFilters && (
                     <button
-                     onClick={() => {
+                      onClick={() => {
                         setQuery("");
                         setDepartment("");
                         setLocation("");
@@ -179,56 +235,66 @@ const Careers: React.FC = () => {
                 </div>
               </div>
 
-              <motion.p 
-                initial={{opacity:0, x:-30}}
-                whileInView={{opacity:1,x:0}}
-                transition={{duration:1.2}} 
-                className="text-sm text-gray-400">
-                Showing <span className="text-white font-medium">{filtered.length}</span> openings
-              </motion.p>
+              <p className="text-sm text-gray-400">
+                Showing{" "}
+                <span className="text-white font-medium">
+                  {filtered.length}
+                </span>{" "}
+                openings
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Jobs list */}
-        <motion.div 
-          initial={{opacity:0, y:30}}
-          whileInView={{opacity:1,y:0}}
-          transition={{duration:1.2,delay:1}}
-          className="space-y-4"
-        >
-          {filtered.length === 0 ? (
-            <div className="p-6 rounded-xl bg-white/5 border border-white/10 text-gray-400">No jobs match your filters.</div>
+        <div className="space-y-4">
+          {isLoading ? (
+            <div className="text-white">Loading careers...</div>
+          ) : filtered.length === 0 ? (
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10 text-gray-400">
+              No jobs match your filters.
+            </div>
           ) : (
-            filtered.map((job) => (
+            filtered.map((job: Career) => (
               <div
-                key={job.id}
-                className="group p-6 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 flex items-center justify-between cursor-pointer"
+                key={job._id}
+                className="group p-6 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 flex items-center justify-between"
               >
                 <div>
                   <h3 className="font-display font-bold text-xl text-white mb-2 group-hover:text-purple-300 transition-colors">
                     {job.title}
                   </h3>
+
                   <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+
                       {job.department}
                     </span>
+
                     <span className="flex items-center gap-1.5">
-                      <MapPin size={14} /> {job.location}
+                      <MapPin size={14} />
+
+                      {job.location}
                     </span>
+
                     <span className="flex items-center gap-1.5">
-                      <Clock size={14} /> {job.type}
+                      <Clock size={14} />
+
+                      {job.jobType}
                     </span>
                   </div>
                 </div>
-                <a href={`/careers/${job.id}`} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-purple-600 group-hover:border-purple-600 transition-all">
+
+                <Link
+                  to={`/careers/${job.slug}`}
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-purple-600 group-hover:border-purple-600 transition-all"
+                >
                   <ArrowUpRight size={20} />
-                </a>
+                </Link>
               </div>
             ))
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

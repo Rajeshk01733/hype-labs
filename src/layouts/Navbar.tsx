@@ -71,6 +71,7 @@ const navData: NavItem[] = [
   { name: "Portfolio", href: "/portfolio" },
   // { name: "Blog", href: "/blog" },
   { name: "Careers", href: "/careers" },
+  { name: "Insights", href: "/insights" },
 ];
 
 const Navbar: React.FC = () => {
