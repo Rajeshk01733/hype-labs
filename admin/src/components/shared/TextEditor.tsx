@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 
@@ -45,18 +45,12 @@ export default function TextEditor({
 
   return (
     <div className="space-y-2">
-      {label && (
-        <label className="text-sm font-medium">
-          {label}
-        </label>
-      )}
+      {label && <label className="text-sm font-medium">{label}</label>}
 
       <ReactQuill
         theme="snow"
         value={value || ""}
-        onChange={(content) =>
-          onChange(content)
-        }
+        onChange={(content) => onChange(content)}
         modules={modules}
         formats={formats}
         className="bg-card border-input rounded-md"
